@@ -57,7 +57,7 @@
         <!-- Update Status Form -->
         <div class="form-group">
             <h3>Update Task Status</h3>
-            <select id="userSelect">
+            <select id="userSelect" onchange="loadUserTasks()">
                 <option value="">Select User</option>
             </select>
             <select id="taskSelect">
@@ -113,15 +113,17 @@
         // Load data when page loads
         document.addEventListener('DOMContentLoaded', function() {
             loadUsers();
-            loadTasks();
+            loadAllTasks();
         });
 
+        // Load users into dropdowns
         function loadUsers() {
             fetch('users.json')
                 .then(response => response.json())
                 .then(data => {
                     const userSelects = document.querySelectorAll('#userSelect, #newTaskUser');
                     userSelects.forEach(select => {
+                        select.innerHTML = '<option value="">Select User</option>';
                         data.users.forEach(user => {
                             const option = document.createElement('option');
                             option.value = user;
@@ -132,7 +134,8 @@
                 });
         }
 
-        function loadTasks() {
+        // Load all tasks into the tasks table
+        function loadAllTasks() {
             fetch('data.json')
                 .then(response => response.json())
                 .then(data => {
@@ -150,12 +153,43 @@
                 });
         }
 
+        // Load tasks based on the selected user
+        function loadUserTasks() {
+            const selectedUser = document.getElementById('userSelect').value;
+            const taskSelect = document.getElementById('taskSelect');
+            const tbody = document.getElementById('tasksTableBody');
+            taskSelect.innerHTML = '<option value="">Select Task</option>';
+            tbody.innerHTML = ''; // Clear current table rows
+            
+            fetch('data.json')
+                .then(response => response.json())
+                .then(data => {
+                    if (selectedUser && data[selectedUser]) {
+                        // Populate tasks dropdown for selected user
+                        for (const task in data[selectedUser]) {
+                            const option = document.createElement('option');
+                            option.value = task;
+                            option.textContent = task;
+                            taskSelect.appendChild(option);
+
+                            // Update table with tasks for selected user only
+                            const row = tbody.insertRow();
+                            row.insertCell(0).textContent = selectedUser;
+                            row.insertCell(1).textContent = task;
+                            row.insertCell(2).textContent = data[selectedUser][task];
+                        }
+                    } else {
+                        loadAllTasks(); // If no user selected, show all tasks
+                    }
+                });
+        }
+
         function updateStatus() {
             const user = document.getElementById('userSelect').value;
             const task = document.getElementById('taskSelect').value;
             const status = document.getElementById('statusSelect').value;
             
-            fetch('http://127.0.0.1:5000/api/tasks/status', {  // Change this to your server URL if not local
+            fetch('http://127.0.0.1:5000/api/tasks/status', {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -168,21 +202,20 @@
             })
             .then(response => response.json())
             .then(data => {
-                alert(data.message);  // Show success or error message from the backend
-                loadTasks();  // Reload tasks list
+                alert(data.message);
+                loadAllTasks();
             })
             .catch(error => {
                 console.error('Error:', error);
             });
         }
 
-
         function addNewTask() {
             const user = document.getElementById('newTaskUser').value;
             const task = document.getElementById('newTaskName').value;
             const status = document.getElementById('newTaskStatus').value;
             
-            fetch('http://127.0.0.1:5000/api/tasks', {  // Change this to your server URL if not local
+            fetch('http://127.0.0.1:5000/api/tasks', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -195,19 +228,18 @@
             })
             .then(response => response.json())
             .then(data => {
-                alert(data.message);  // Show success or error message from the backend
-                loadTasks();  // Reload tasks list
+                alert(data.message);
+                loadAllTasks();
             })
             .catch(error => {
                 console.error('Error:', error);
             });
         }
 
-
         function addNewUser() {
             const username = document.getElementById('newUserName').value;
             
-            fetch('http://127.0.0.1:5000/api/users', {  // Change this to your server URL if not local
+            fetch('http://127.0.0.1:5000/api/users', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -216,8 +248,8 @@
             })
             .then(response => response.json())
             .then(data => {
-                alert(data.message);  // Show success or error message from the backend
-                loadUsers();  // Reload users list
+                alert(data.message);
+                loadUsers();
             })
             .catch(error => {
                 console.error('Error:', error);
