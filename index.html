@@ -155,31 +155,75 @@
             const task = document.getElementById('taskSelect').value;
             const status = document.getElementById('statusSelect').value;
             
-            // In a real implementation, this would make a POST request to your backend
-            alert(`Status update requested: User=${user}, Task=${task}, Status=${status}`);
-            // After backend processes the request, reload the tasks
-            loadTasks();
+            fetch('http://localhost:5000/api/tasks/status', {  // Change this to your server URL if not local
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    user: user,
+                    task: task,
+                    status: status
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);  // Show success or error message from the backend
+                loadTasks();  // Reload tasks list
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
         }
+
 
         function addNewTask() {
             const user = document.getElementById('newTaskUser').value;
             const task = document.getElementById('newTaskName').value;
             const status = document.getElementById('newTaskStatus').value;
             
-            // In a real implementation, this would make a POST request to your backend
-            alert(`New task requested: User=${user}, Task=${task}, Status=${status}`);
-            // After backend processes the request, reload the tasks
-            loadTasks();
+            fetch('http://localhost:5000/api/tasks', {  // Change this to your server URL if not local
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    user: user,
+                    task: task,
+                    status: status
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);  // Show success or error message from the backend
+                loadTasks();  // Reload tasks list
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
         }
+
 
         function addNewUser() {
             const username = document.getElementById('newUserName').value;
             
-            // In a real implementation, this would make a POST request to your backend
-            alert(`New user requested: ${username}`);
-            // After backend processes the request, reload the users
-            loadUsers();
+            fetch('http://localhost:5000/api/users', {  // Change this to your server URL if not local
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username: username })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);  // Show success or error message from the backend
+                loadUsers();  // Reload users list
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
         }
+
     </script>
 </body>
 </html>
