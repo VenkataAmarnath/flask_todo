@@ -1,10 +1,6 @@
-Here’s an updated `README.md` based on your current project structure:
-
----
-
 # To-Do List Management Project
 
-This project is a web-based To-Do List Management application that allows users to manage tasks for different users, update task statuses, and add new tasks and users. The application is built with HTML, CSS, and JavaScript for the front end, and a Python Flask backend API for data management.
+This project is a web-based **To-Do List Management** application built with HTML, CSS, JavaScript for the frontend, and a **Python Flask backend** for data management. It allows users to manage tasks for different users, update task statuses, and add new tasks and users.
 
 ## Features
 
@@ -61,12 +57,21 @@ This project is a web-based To-Do List Management application that allows users 
 3. **Update a Task's Status**: Select a user, pick their task, choose a new status, and click **Update Status**.
 4. **View Tasks by User**: Select a user to see only their tasks.
 
-### Notes on Static Deployment
+## Notes on Static Deployment
 
-- This project currently requires a server to fetch data from `data.json` and `users.json`, so it won’t fully function on GitHub Pages or other static hosts.
+This project currently requires a server to fetch data from `data.json` and `users.json`, so it won’t fully function on GitHub Pages or other static hosts.  
+To see the project fully functioning, it's recommended to deploy it on a server environment where the data can be fetched dynamically, such as using local development servers or cloud-based services.
+
+## GitHub Pages Link
+
+You can view the **project preview** hosted on GitHub Pages here:  
+[**Project Preview**](https://venkataamarnath.github.io/todo_flask_api/) 
+
+Note: The preview may not function fully due to limitations on static hosting.
 
 ## Scope for Future Enhancements
 
 - **Backend API**: Extend backend functionality to handle dynamic data updates.
 - **User Authentication**: Add user login and registration.
 - **Data Storage**: Integrate a database for persistent task and user data storage.
+
