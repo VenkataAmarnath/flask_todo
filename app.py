@@ -8,8 +8,8 @@ CORS(app)  # Enable CORS for all routes
 
 class TodoAPI:
     def __init__(self):
-        self.users_file = "users.json"
-        self.data_file = "data.json"
+        self.users_file = "./users.json"
+        self.data_file = "./data.json"
         
     def load_users(self):
         if os.path.exists(self.users_file):
