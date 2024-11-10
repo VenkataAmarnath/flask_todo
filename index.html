@@ -17,13 +17,13 @@
             border-radius: 8px;
         }
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 10px;
         }
         select, button {
             padding: 8px;
             margin: 5px;
             border-radius: 4px;
-            border: 1px solid #ddd;
+            border: 1px solid #dddddd;
         }
         button {
             background-color: #4CAF50;
@@ -155,7 +155,7 @@
             const task = document.getElementById('taskSelect').value;
             const status = document.getElementById('statusSelect').value;
             
-            fetch('http://localhost:5000/api/tasks/status', {  // Change this to your server URL if not local
+            fetch('http://127.0.0.1:5000/api/tasks/status', {  // Change this to your server URL if not local
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -182,7 +182,7 @@
             const task = document.getElementById('newTaskName').value;
             const status = document.getElementById('newTaskStatus').value;
             
-            fetch('http://localhost:5000/api/tasks', {  // Change this to your server URL if not local
+            fetch('http://127.0.0.1:5000/api/tasks', {  // Change this to your server URL if not local
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -207,7 +207,7 @@
         function addNewUser() {
             const username = document.getElementById('newUserName').value;
             
-            fetch('http://localhost:5000/api/users', {  // Change this to your server URL if not local
+            fetch('http://127.0.0.1:5000/api/users', {  // Change this to your server URL if not local
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
