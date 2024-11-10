@@ -33,8 +33,8 @@ This project is a web-based **To-Do List Management** application built with HTM
 
 1. **Clone this repository**:
     ```bash
-    git clone https://github.com/your-username/todo-list-management.git
-    cd todo-list-management
+    git clone https://github.com/VenkataAmarnath/todo_flask_api.git
+    cd todo_flask_api
     ```
 
 2. **Install required Python packages**:
